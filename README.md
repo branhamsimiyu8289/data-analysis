@@ -42,20 +42,24 @@ data-analysis/
 The script follows a linear analysis workflow:
 
 ```text
-Sample fitness data
-	|
-	v
-DataFrame inspection
-(shape, columns, types, missing values)
-	|
-	v
-Filtering and protocol grouping
-	|
-	v
-NumPy statistics and trend calculations
-	|
-	v
-Weekly breakdown and terminal report
+[ Raw Fitness Data ] 
+           │
+           ▼
+┌──────────────────────┐
+│  1. Data Inspection  │ ──> Validates schema, data types, shapes, and null checks.
+└──────────┬───────────┘
+           ▼
+┌──────────────────────┐
+│ 2. Filter & Grouping │ ──> Extracts high-performance subsets and aggregates protocol stats.
+└──────────┬───────────┘
+           ▼
+┌──────────────────────┐
+│ 3. NumPy Statistics  │ ──> Vectorized computations (percentiles, trends, correlations).
+└──────────┬───────────┘
+           ▼
+┌──────────────────────┐
+│  4. Summary Report   │ ──> Formatted CLI output containing weekly breakdowns and top days.
+└──────────────────────┘
 ```
 
 ## Dataset Structure
@@ -128,25 +132,37 @@ The script prints its inspection details and analysis to the terminal. It does n
 The report includes summary statistics, weekly averages, protocol comparisons, and the three highest-step days. For the current sample, the final summary includes:
 
 ```text
-SMP 28-DAY FITNESS ANALYSIS REPORT
+======================================================
+  SMP 28-DAY FITNESS ANALYSIS REPORT
+======================================================
 
-OVERALL METRICS
-Days tracked:             28
-Total steps:              268,700
-Avg daily steps:          9,596
-Days hitting 10k:         12/28  (43%)
-Avg sleep:                7.6 hrs
-Bench press range:        78 to 88 kg
-Bench press trend:        +1.7 kg (wk1 to wk4)
+  OVERALL METRICS
+  Days tracked:             28
+  Total steps:              268,600
+  Avg daily steps:          9,593
+  Days hitting 10k:         12/28  (43%)
+  Avg sleep:                7.5 hrs
+  Bench press range:        78 to 88 kg
+  Bench press trend:        +2.9 kg (wk1 to wk4)
 
-PROTOCOL COMPARISON
-2MAD: avg steps=9,112, sleep=8.4h, bench=82.2kg
-OMAD: avg steps=9,790, sleep=7.2h, bench=83.2kg
+  WEEKLY BREAKDOWN
+  Week        Avg Steps  10k Days   Avg Bench
+  --------------------------------------------
+  Week 1          9,529       3/7     82.1 kg
+  Week 2          9,500       3/7     82.6 kg
+  Week 3          9,743       3/7     83.9 kg
+  Week 4          9,600       3/7     84.6 kg
 
-TOP 3 STEP DAYS
-Day 18: 11,500 steps  (OMAD)
-Day 11: 11,200 steps  (OMAD)
-Day  4: 11,000 steps  (OMAD)
+  PROTOCOL COMPARISON
+  2MAD: avg steps=9,380, sleep=8.2h, bench=83.0kg
+  OMAD: avg steps=9,643, sleep=7.3h, bench=83.5kg
+
+  TOP 3 STEP DAYS
+  Day 18: 11,500 steps  (OMAD)
+  Day 11: 11,200 steps  (OMAD)
+  Day  4: 11,000 steps  (OMAD)
+
+======================================================
 ```
 
 Values are determined by the sample data in the script.
